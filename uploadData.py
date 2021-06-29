@@ -13,7 +13,6 @@ upload_url = "http://devtest.ibr.cc:20317/upload/v1/custom"
 
 username = 'App_test'
 token = 'db0589a5ded005ac'
-
 datasource = 'custom.data'
 headers = {
     'username': username,
