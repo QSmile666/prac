@@ -1,14 +1,9 @@
 import requests
+import yaml
 
 
 class API:
-    env = {
-        "default": "test2",
-        "devtest": {
-            "test2": "20317",
-            "test3": "20392",
-        }
-    }
+    env = yaml.safe_load(open("env.yaml"))
 
     def send(self, data: dict):
         data["url"] = str(data["url"]).replace("20392", self.env["devtest"][self.env["default"]])
