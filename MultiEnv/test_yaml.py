@@ -10,5 +10,6 @@ def test_yaml():
             "test3": "20392",
         }
     }
+
     with open("env.yaml", "w") as f:
         yaml.safe_dump(data=env, stream=f)

@@ -1,5 +1,6 @@
 import yaml
 
+
 def test_yaml2():
     data = {
         "method": "POST",

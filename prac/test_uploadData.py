@@ -1,5 +1,6 @@
 import requests
 
+
 class TestDemo:
     upload_url = "http://devtest.ibr.cc:20317/upload/v1/custom"
     username = 'App_test'

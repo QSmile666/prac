@@ -51,6 +51,7 @@ class TestAPI:
         }
     }
 
+
     def test_send(self):
         api = env_demo.API()
         res = api.send(self.data)

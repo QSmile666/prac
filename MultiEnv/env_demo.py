@@ -10,3 +10,4 @@ class API:
         r = requests.request(method=data["method"], url=data["url"], json=data["payload"],
                              headers=data["headers"])
         return r
+

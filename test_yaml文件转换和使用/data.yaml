@@ -24,3 +24,4 @@ payload:
     valueType: doubleSum
   TAbLEName: table1
 url: http://devtest.ibr.cc:20392/upload/v1/custom
+

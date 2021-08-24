@@ -2,25 +2,27 @@ from time import sleep
 
 import requests
 
-upload_url = "http://devtest.ibr.cc:20317/upload/v1/custom"
+# pre
+# upload_url = "http://118.194.54.254:20063/upload/v1/custom"
+# huawei_test
+upload_url = "http://10.10.20.30:9997/upload/v1/custom"
 
+username = 'lzh_test'
+token = '246ea9150b6536bb'
 
-# username = 'dataview_acc2'
-# token = 'fe0046420e859cb3'
+# username = 'apm_test'
+# token = 'c1708bb3ce45d936'
 
-# username = 'dataview_2.2'
-# token = '858696d0f9d0ecf9'
-
-username = 'App_test'
-token = 'db0589a5ded005ac'
-datasource = 'custom.data'
+# username = 'livedemo'
+# token = 'be0c2c58c643ae06'
+datasource = 'custom'
 headers = {
     'username': username,
     'token': token,
     'datasource': datasource
 }
 body = {
-    "TAbLEName": "table5",
+    "TAbLEName": "table1",
     "FIeLDValueType": [
         {
             "fieldName": "metric",
@@ -41,15 +43,15 @@ body = {
             "value": 97
         },
         {
-            "name": "c应用",
+            "name": "uup应用",
             "value": 72
         },
         {
-            "name": "b应用",
+            "name": "qq应用",
             "value": 54
         },
         {
-            "name": "a应用",
+            "name": "yy应用",
             "value": 63
         },
         {
@@ -59,12 +61,10 @@ body = {
     ]
 }
 
-
-
-for i in range(1, 2):
+for i in range(1, 10000):
     r = requests.post(url=upload_url, json=body, headers=headers)
     r.content.decode("utf-8")
     print(r.json())
     print(r.text)
     print("发送次数：", i)
-    sleep(1)
+    sleep(3)
