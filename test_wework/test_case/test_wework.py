@@ -7,4 +7,4 @@ from test_wework.api.wework import WeWork
 class TestWeWork:
     def test_getToken(self):
         secret = "xSDP_WU3oOxVWX3gFCM22B1KPftYbEXDW2uDOkszN9w"
-        print(WeWork().get_token(secret).json())
+        print(WeWork().get_token(secret))
