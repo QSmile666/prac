@@ -12,7 +12,7 @@ class Tag(BaseApi):
     def __init__(self):
         self.token = WeWork().get_token(self.secret)
 
-    def add_tag(self):
+    def add_tag(self, name):
         data = {
             "method": "POST",
             "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
@@ -23,7 +23,7 @@ class Tag(BaseApi):
                 "group_name": "group_name",
                 "order": 1,
                 "tag": [{
-                    "name": "tag_name_1",
+                    "name": name,
                     "order": 1
                 }]
             }
@@ -34,23 +34,39 @@ class Tag(BaseApi):
     def get_tag(self):
         data = {
             "method": "POST",
-            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_corp_tag_list",
+            "params": {
+                "access_token": self.token
+            },
+            "json": {}
+        }
+        return self.send_api(data)
+
+    def delete_tag(self, tagId):
+        data = {
+            "method": "POST",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag",
             "params": {
                 "access_token": self.token
             },
             "json": {
-                "group_name": "group_name",
-                "order": 1,
-                "tag": [{
-                    "name": "tag_name_1",
-                    "order": 1
-                }]
+                "tag_id": [
+                    tagId
+                ]
             }
         }
-        pass
+        return self.send_api(data)
 
-    def delete_tag(self):
-        pass
-
-    def update_tag(self):
-        pass
+    def update_tag(self, tagId, name):
+        data = {
+            "method": "POST",
+            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/edit_corp_tag",
+            "params": {
+                "access_token": self.token
+            },
+            "json": {
+                "id": tagId,
+                "name": name
+            }
+        }
+        return self.send_api(data)
