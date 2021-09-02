@@ -12,7 +12,7 @@ class Tag(BaseApi):
     def __init__(self):
         self.token = WeWork().get_token(self.secret)
 
-    def add_tag(self, name):
+    def add_tag(self, tag_name):
         data = {
             "method": "POST",
             "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
@@ -23,7 +23,7 @@ class Tag(BaseApi):
                 "group_name": "group_name",
                 "order": 1,
                 "tag": [{
-                    "name": name,
+                    "name": tag_name,
                     "order": 1
                 }]
             }
@@ -42,7 +42,7 @@ class Tag(BaseApi):
         }
         return self.send_api(data)
 
-    def delete_tag(self, tagId):
+    def delete_tag(self, tag_id):
         data = {
             "method": "POST",
             "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag",
@@ -51,13 +51,13 @@ class Tag(BaseApi):
             },
             "json": {
                 "tag_id": [
-                    tagId
+                    tag_id
                 ]
             }
         }
         return self.send_api(data)
 
-    def update_tag(self, tagId, name):
+    def update_tag(self, tag_id, name):
         data = {
             "method": "POST",
             "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/edit_corp_tag",
@@ -65,7 +65,7 @@ class Tag(BaseApi):
                 "access_token": self.token
             },
             "json": {
-                "id": tagId,
+                "id": tag_id,
                 "name": name
             }
         }

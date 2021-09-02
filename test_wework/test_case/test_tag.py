@@ -3,24 +3,36 @@
 # @author: zhenhualee
 import json
 
-from jsonpath import jsonpath
+import pytest
 
 from test_wework.api.tag import Tag
 
 
 class TestTag:
+    @classmethod
+    def setup_class(cls):
+        cls.tag = Tag()
+
+    # 每个方法执行前都会执行一次
     def setup(self):
-        self.tag = Tag()
+        pass
 
-    def test_all(self):
-        tagId = jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="yyaa")].id')
-        if tagId:
-            self.tag.delete_tag(tagId[0])
+    @pytest.mark.parametrize("name_old,name_new", [
+        ("yyaa", "yyaa-1"),
+        ("opp", "oppa")
+    ])
+    def test_all(self, name_old, name_new):
+        data = self.tag.get_tag()
 
-        self.tag.add_tag("yyaa-1")
+        for name in [name_old, name_new]:
+            tag_id = self.tag.jsonpath(data, f'$..tag[?(@.name=="{name}")].id')
+            if tag_id:
+                self.tag.delete_tag(tag_id[0])
 
-        tag_Id = jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="yyaa-1")].id')[0]
-        self.tag.update_tag(tag_Id, "yyaa")
+        assert self.tag.add_tag(name_old)["errcode"] == 0
+
+        tag_id = self.tag.jsonpath(self.tag.get_tag(), f'$..tag[?(@.name=="{name_old}")].id')[0]
+        assert self.tag.update_tag(tag_id, name_new)["errcode"] == 0
 
     def test_add_tag(self):
         print(Tag().add_tag("opp"))
@@ -29,10 +41,10 @@ class TestTag:
         print(json.dumps(Tag().get_tag(), indent=2))
 
     def test_delete_tag(self):
-        tagId = jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="opp")].id')[0]
-        print(Tag().delete_tag(tagId))
+        tag_id = self.tag.jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="opp")].id')[0]
+        print(Tag().delete_tag(tag_id))
 
     def test_update_tag(self):
         self.tag.add_tag("oppa")
-        tagId = jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="oppa")].id')[0]
-        print(Tag().update_tag(tagId, "oppoo"))
+        tag_id = self.tag.jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="oppa")].id')[0]
+        print(Tag().update_tag(tag_id, "oppoo"))
