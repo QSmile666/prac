@@ -4,6 +4,7 @@
 from pprint import pprint
 
 import requests
+import yaml
 from jsonpath import jsonpath
 
 
@@ -14,6 +15,11 @@ class BaseApi:
         pprint(res.json())
         return res.json()
 
-    @staticmethod
-    def jsonpath(json, expr):
+    @classmethod
+    def jsonpath(cls, json, expr):
         return jsonpath(json, expr)
+
+    @classmethod
+    def load(cls, path):
+        with open(path, "r") as f:
+            return yaml.safe_load(f)

@@ -5,10 +5,13 @@ import json
 
 import pytest
 
+from test_wework.api.base_api import BaseApi
 from test_wework.api.tag import Tag
 
 
 class TestTag:
+    test_data = BaseApi.load("test_tag_data.yaml")
+
     @classmethod
     def setup_class(cls):
         cls.tag = Tag()
@@ -17,10 +20,7 @@ class TestTag:
     def setup(self):
         pass
 
-    @pytest.mark.parametrize("name_old,name_new", [
-        ("yyaa", "yyaa-1"),
-        ("opp", "oppa")
-    ])
+    @pytest.mark.parametrize("name_old,name_new", test_data)
     def test_all(self, name_old, name_new):
         data = self.tag.get_tag()
 
