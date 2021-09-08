@@ -13,33 +13,16 @@ class Tag(BaseApi):
         self.token = WeWork().get_token(self.secret)
 
     def add_tag(self, tag_name):
-        data = {
-            "method": "POST",
-            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
-            "params": {
-                "access_token": self.token
-            },
-            "json": {
-                "group_name": "group_name",
-                "order": 1,
-                "tag": [{
-                    "name": tag_name,
-                    "order": 1
-                }]
-            }
-        }
+        data = self.load("../api/tag.add.yaml")
+        data["params"]["access_token"] = self.token
+        data["json"]["tag"][0]["name"] = tag_name
 
         return self.send_api(data)
 
     def get_tag(self):
-        data = {
-            "method": "POST",
-            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/get_corp_tag_list",
-            "params": {
-                "access_token": self.token
-            },
-            "json": {}
-        }
+        data = self.load("../api/tag.get.yaml")
+        print(data)
+        data["params"]["access_token"] = self.token
         return self.send_api(data)
 
     def delete_tag(self, tag_id):

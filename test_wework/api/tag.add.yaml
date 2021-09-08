@@ -1,0 +1,10 @@
+json:
+  group_name: group_name
+  order: 1
+  tag:
+    - name: "{{tag_name}}"
+      order: 1
+method: POST
+params:
+  access_token: "{{self.token}}"
+url: https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag

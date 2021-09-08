@@ -5,16 +5,16 @@ import json
 
 import pytest
 
-from test_wework.api.base_api import BaseApi
 from test_wework.api.tag import Tag
 
 
 class TestTag:
-    test_data = BaseApi.load("test_tag_data.yaml")
+    tag = Tag()
+    test_data = tag.load("test_tag_data.yaml")
 
     @classmethod
     def setup_class(cls):
-        cls.tag = Tag()
+        pass
 
     # 每个方法执行前都会执行一次
     def setup(self):
@@ -35,16 +35,16 @@ class TestTag:
         assert self.tag.update_tag(tag_id, name_new)["errcode"] == 0
 
     def test_add_tag(self):
-        print(Tag().add_tag("opp"))
+        assert self.tag.add_tag("opp")["errcode"] == 0
 
     def test_get_tag(self):
-        print(json.dumps(Tag().get_tag(), indent=2))
+        assert json.dumps(self.tag.get_tag(), indent=2)["errcode"] == 0
 
     def test_delete_tag(self):
         tag_id = self.tag.jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="opp")].id')[0]
-        print(Tag().delete_tag(tag_id))
+        assert self.tag.delete_tag(tag_id)
 
     def test_update_tag(self):
         self.tag.add_tag("oppa")
         tag_id = self.tag.jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="oppa")].id')[0]
-        print(Tag().update_tag(tag_id, "oppoo"))
+        assert self.tag.update_tag(tag_id, "oppoo")
