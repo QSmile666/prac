@@ -1,6 +1,8 @@
 # !/usr/bin/env python
 # _*_ coding:utf-8 _*_
 # @author: zhenhualee
+from string import Template
+
 from test_wework.api.base_api import BaseApi
 from test_wework.api.wework import WeWork
 
@@ -12,44 +14,29 @@ class Tag(BaseApi):
     def __init__(self):
         self.token = WeWork().get_token(self.secret)
 
-    def add_tag(self, tag_name):
-        data = self.load("../api/tag.add.yaml")
-        data["params"]["access_token"] = self.token
-        data["json"]["tag"][0]["name"] = tag_name
+    def add_tag(self, **data):
+        # data = self.load("../api/tag.add.yaml")
+        # data["params"]["access_token"] = self.token
+        # data["json"]["tag"][0]["name"] = tag_name
 
+        data.update({'token': self.token})
+        data = self.template("../api/tag.all.yaml", data, opera="add")
         return self.send_api(data)
 
-    def get_tag(self):
-        data = self.load("../api/tag.get.yaml")
-        print(data)
-        data["params"]["access_token"] = self.token
+    def get_tag(self, **data):
+        # data = self.load("../api/tag.get.yaml")
+        # print(data)
+        # data["params"]["access_token"] = self.token
+        data.update({"token": self.token})
+        self.template("../api/tag.all.yaml", data, opera="get")
         return self.send_api(data)
 
-    def delete_tag(self, tag_id):
-        data = {
-            "method": "POST",
-            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/del_corp_tag",
-            "params": {
-                "access_token": self.token
-            },
-            "json": {
-                "tag_id": [
-                    tag_id
-                ]
-            }
-        }
+    def delete_tag(self, **data):
+        data.update({"token": self.token})
+        data = self.template("../api/tag.all.yaml", data, opera="delete")
         return self.send_api(data)
 
-    def update_tag(self, tag_id, name):
-        data = {
-            "method": "POST",
-            "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/edit_corp_tag",
-            "params": {
-                "access_token": self.token
-            },
-            "json": {
-                "id": tag_id,
-                "name": name
-            }
-        }
+    def update_tag(self, **data):
+        data.update({"token": self.token})
+        data = self.template("../api/tag.all.yaml", data, opera="update")
         return self.send_api(data)

@@ -5,19 +5,15 @@ import yaml
 def test_yaml():
     data = {
         "method": "POST",
-        "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/add_corp_tag",
+        "url": "https://qyapi.weixin.qq.com/cgi-bin/externalcontact/edit_corp_tag",
         "params": {
-            "access_token": "self.token"
+            "access_token": "token"
         },
         "json": {
-            "group_name": "group_name",
-            "order": 1,
-            "tag": [{
-                "name": "tag_name",
-                "order": 1
-            }]
+            "id": "tag_id",
+            "name": "name"
         }
     }
 
-    with open("data_addTag.yaml", "w") as f:
+    with open("data_updateTag.yaml", "w") as f:
         yaml.safe_dump(data=data, stream=f)
