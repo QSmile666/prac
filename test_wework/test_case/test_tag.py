@@ -23,6 +23,7 @@ class TestTag:
         pass
 
     @allure.story("企业标签的增删改查")
+    @allure.severity(allure.severity_level.NORMAL)
     @pytest.mark.parametrize("name_old,name_new", test_data)
     def test_all(self, name_old, name_new):
         with allure.step("查询企业标签"):
@@ -41,6 +42,7 @@ class TestTag:
             assert self.tag.update_tag(tag_id=tag_id, name=name_new)["errcode"] == 0
 
     @allure.story("添加企业标签")
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_add_tag(self):
         assert self.tag.add_tag(tag_name="opp")["errcode"] == 0
 
@@ -57,6 +59,6 @@ class TestTag:
 
     @allure.story("更新企业标签")
     def test_update_tag(self):
-        self.tag.add_tag(tag_name="oppa")
+        self.tag.add_tag(tag_name="oppaa")
         tag_id = self.tag.jsonpath(self.tag.get_tag(), '$..tag[?(@.name=="oppa")].id')[0]
         assert self.tag.update_tag(tag_id=tag_id, name="oppoo")
