@@ -37,7 +37,7 @@ class TestTag:
         assert self.tag.add_tag(tag_name="opp")["errcode"] == 0
 
     def test_get_tag(self):
-        assert json.dumps(self.tag.get_tag(), indent=2)["errcode"] == 0
+        assert self.tag.get_tag()["errcode"] == 0
 
     def test_delete_tag(self):
         name = "opp"

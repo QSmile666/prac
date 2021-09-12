@@ -28,7 +28,7 @@ class Tag(BaseApi):
         # print(data)
         # data["params"]["access_token"] = self.token
         data.update({"token": self.token})
-        self.template("../api/tag.all.yaml", data, opera="get")
+        data = self.template("../api/tag.all.yaml", data, opera="get")
         return self.send_api(data)
 
     def delete_tag(self, **data):
